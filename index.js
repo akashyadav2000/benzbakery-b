@@ -43,19 +43,21 @@ app.post("/create-order", async (req, res) => {
 });
 
 // Other routes
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
   const { email } = req.body;
-  RegistrationModel.findOne({ email })
-    .then((user) => {
-      if (user) {
-        res.status(400).json({ message: "Email is already registered" });
-      } else {
-        RegistrationModel.create(req.body)
-          .then((user) => res.json(user))
-          .catch((err) => res.status(500).json(err.message));
-      }
-    })
-    .catch((err) => res.status(500).json(err.message));
+
+  try {
+    const user = await RegistrationModel.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "Email is already registered" });
+    }
+
+    const newUser = await RegistrationModel.create(req.body);
+    res.status(201).json({ message: "Signup successful", user: newUser });
+  } catch (err) {
+    console.error("Error during signup:", err);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 app.post("/login", (req, res) => {
