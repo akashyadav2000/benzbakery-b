@@ -18,26 +18,40 @@ const RegistrationSchema = new mongoose.Schema({
   },
   purchaseHistory: [
     {
-      id: String, // Product ID
-      name: String, // Product name
-      image: String, // Product image URL
-      selectedSize: String, // Selected size (e.g., "10-12 (1kg)")
-      selectedDate: String, // Selected delivery date
-      selectedTimeSlot: String, // Selected delivery time slot
-      cakeMessage: String, // Custom message for the cake
-      flavor: String, // Flavor of the product
-      price: Number, // Price of the product
-      quantity: Number, // Quantity purchased
-      total: Number, // Total price (price * quantity)
+      id: String,
+      name: String,
+      image: String,
+      selectedSize: String,
+      selectedDate: String,
+      selectedTimeSlot: String,
+      cakeMessage: String,
+      flavor: String,
+      price: Number,
+      quantity: Number,
+      total: Number,
       purchasedAt: {
         type: Date,
-        default: Date.now, // Timestamp of purchase
+        default: Date.now,
       },
+    },
+  ],
+  cartItems: [
+    {
+      id: String,
+      name: String,
+      image: String,
+      selectedSize: String,
+      selectedDate: String,
+      selectedTimeSlot: String,
+      cakeMessage: String,
+      flavor: String,
+      price: Number,
+      quantity: Number,
     },
   ],
   createdAt: {
     type: Date,
-    default: Date.now, // Timestamp of user registration
+    default: Date.now,
   },
 });
 

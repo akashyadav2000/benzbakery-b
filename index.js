@@ -103,6 +103,40 @@ app.post("/newsLetter", (req, res) => {
     .catch((err) => res.status(500).json(err.message));
 });
 
+// Save Cart Items Route
+app.post("/save-cart", async (req, res) => {
+  const { email, cartItems } = req.body;
+
+  try {
+    const user = await RegistrationModel.findOne({ email });
+    if (user) {
+      user.cartItems = cartItems; // Replace the entire cart
+      await user.save();
+      res.json({ status: "Success", user });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
+// Fetch Cart Items Route
+app.get("/get-cart/:email", async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const user = await RegistrationModel.findOne({ email });
+    if (user) {
+      res.json({ status: "Success", cartItems: user.cartItems });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (err) {
+    res.status(500).json(err.message);
+  }
+});
+
 // Save Purchase History Route
 app.post("/save-purchase-history", async (req, res) => {
   const { email, purchaseData } = req.body;
