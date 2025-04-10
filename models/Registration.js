@@ -29,6 +29,8 @@ const RegistrationSchema = new mongoose.Schema({
       price: Number, // Price of the product
       quantity: Number, // Quantity purchased
       total: Number, // Total price (price * quantity)
+      address: String, // Add address field
+      pincode: String, // Add pincode field
       purchasedAt: {
         type: Date,
         default: Date.now, // Timestamp of purchase
