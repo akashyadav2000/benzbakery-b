@@ -137,38 +137,6 @@ app.get("/get-purchase-history/:email", async (req, res) => {
   }
 });
 
-// Save cart route
-app.post("/save-cart", async (req, res) => {
-  const { email, cartItems } = req.body;
-
-  try {
-    const user = await RegistrationModel.findOneAndUpdate(
-      { email },
-      { $set: { cart: cartItems } },
-      { new: true }
-    );
-    res.json({ status: "Success", user });
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-});
-
-// Get cart route
-app.get("/get-cart/:email", async (req, res) => {
-  const { email } = req.params;
-
-  try {
-    const user = await RegistrationModel.findOne({ email });
-    if (user) {
-      res.json({ status: "Success", cart: user.cart || [] });
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (err) {
-    res.status(500).json(err.message);
-  }
-});
-
 // Start the server
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
