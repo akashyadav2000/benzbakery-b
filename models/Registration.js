@@ -39,6 +39,17 @@ const RegistrationSchema = new mongoose.Schema({
       },
     },
   ],
+  cart: [
+    {
+      id: String,
+      selectedSize: String,
+      selectedDate: String,
+      selectedTimeSlot: String,
+      cakeMessage: String,
+      flavor: String,
+      quantity: Number
+    }
+  ],
   createdAt: {
     type: Date,
     default: Date.now, // Timestamp of user registration
